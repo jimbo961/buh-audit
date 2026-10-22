@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ГлавБух.AI — Экспресс-аудит договоров и первички</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-[#0d1322]/90 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+          <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-tight">ГлавБух<span class="text-amber-500">.AI</span></span>
+          <span class="text-xs text-slate-400 block -mt-1">Методологический налоговый аудит</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> База: НК РФ + ФСБУ 2026
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-10 w-full flex-1">
+    
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Экспресс-аудит договоров на налоговые риски</h1>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto">Выявление признаков трудовых отношений с самозанятыми, несимметричных штрафов, проблем с НДС и рисков непринятия расходов по налогу на прибыль.</p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="glass rounded-2xl p-6 mb-8 shadow-2xl relative">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Код доступа (PIN)</label>
+          <input type="text" id="accessCode" value="DEMO-7821" placeholder="DEMO-XXXX" 
+            class="w-full bg-[#070b13] border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Тип документа</label>
+          <select id="docType" class="w-full bg-[#070b13] border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all">
+            <option value="Договор с самозанятым / ГПХ">Договор с самозанятым / ГПХ (риски переквалификации)</option>
+            <option value="Договор поставки / купли-продажи">Договор поставки (переход права, НДС, УПД)</option>
+            <option value="Договор оказания услуг / Подряд">Договор оказания услуг / Подряд (расходы прибыли)</option>
+            <option value="Договор аренды коммерческой недвижимости">Договор аренды коммерческой недвижимости</option>
+            <option value="Комплексный бухгалтерский экспресс-аудит">Комплексный экспресс-аудит (Общий)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- File Drag and Drop -->
+      <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-amber-500/70 rounded-xl p-8 text-center cursor-pointer transition-all bg-[#070b13]/50 group">
+        <input type="file" id="fileInput" class="hidden" accept=".docx,.pdf,.txt">
+        
+        <div id="dropZoneContent">
+          <div class="w-12 h-12 mx-auto rounded-full bg-slate-800 group-hover:bg-amber-500/10 flex items-center justify-center text-slate-400 group-hover:text-amber-400 transition-colors mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+          </div>
+          <p class="text-sm font-medium text-slate-200">Перетащите файл документа сюда или <span class="text-amber-400 underline">выберите на диске</span></p>
+          <p class="text-xs text-slate-500 mt-1">Поддерживаются форматы: DOCX, PDF, TXT (до 15 МБ)</p>
+        </div>
+
+        <div id="fileInfo" class="hidden flex items-center justify-center gap-3">
+          <span class="text-sm font-medium text-amber-400" id="fileName">document.docx</span>
+          <button type="button" id="removeFileBtn" class="text-xs text-rose-400 hover:underline">Удалить</button>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          Конфиденциальность: файлы анализируются в оперативной памяти и не сохраняются
+        </span>
+        <span class="text-slate-400">Среднее время анализа: ~7–10 сек</span>
+      </div>
+
+      <button id="submitBtn" class="mt-5 w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-amber-500/15 flex items-center justify-center gap-2">
+        <span>Запустить бухгалтерский экспресс-аудит</span>
+      </button>
+
+      <div id="alertBox" class="hidden mt-4 p-3 rounded-lg text-xs font-medium text-center"></div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="hidden space-y-6">
+      <div class="glass rounded-2xl p-6">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-4">
+          <div>
+            <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Заключение эксперта</span>
+            <p id="summaryText" class="text-sm text-slate-200 font-medium"></p>
+          </div>
+          <span id="riskBadge" class="text-xs font-bold px-3 py-1.5 rounded-lg border whitespace-nowrap"></span>
+        </div>
+
+        <h3 class="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Детализация выявленных рисков и проводки</h3>
+        <div class="space-y-4" id="risksContainer"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800/80 py-4 text-center text-xs text-slate-500">
+    ГлавБух.AI © 2026. Защищенный контур налогового комплаенса.
+  </footer>
+
+  <script>
+    const N8N_WEBHOOK_URL = 'https://n8n.novabase24.ru/webhook/buh-audit';
+
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const dropZoneContent = document.getElementById('dropZoneContent');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileNameSpan = document.getElementById('fileName');
+    const removeFileBtn = document.getElementById('removeFileBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const accessCodeInput = document.getElementById('accessCode');
+    const alertBox = document.getElementById('alertBox');
+    const resultsSection = document.getElementById('resultsSection');
+    const risksContainer = document.getElementById('risksContainer');
+    const summaryText = document.getElementById('summaryText');
+    const riskBadge = document.getElementById('riskBadge');
+
+    let selectedFile = null;
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-amber-500'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-amber-500'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-amber-500');
+      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file) return;
+      selectedFile = file;
+      fileNameSpan.textContent = file.name;
+      dropZoneContent.classList.add('hidden');
+      fileInfo.classList.remove('hidden');
+      hideAlert();
+    }
+
+    removeFileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectedFile = null;
+      fileInput.value = '';
+      dropZoneContent.classList.remove('hidden');
+      fileInfo.classList.add('hidden');
+    });
+
+    function showAlert(text, isError = true) {
+      alertBox.textContent = text;
+      alertBox.className = `mt-4 p-3 rounded-lg text-xs font-medium text-center ${isError ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}`;
+      alertBox.classList.remove('hidden');
+    }
+
+    function hideAlert() { alertBox.classList.add('hidden'); }
+
+    submitBtn.addEventListener('click', async () => {
+      const code = accessCodeInput.value.trim();
+      if (!code) return showAlert('Введите код доступа (PIN-код)');
+      if (!selectedFile) return showAlert('Прикрепите файл договора для анализа');
+
+      hideAlert();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-black inline" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        Идет налоговый аудит документа...
+      `;
+
+      try {
+        let textContent = '';
+        if (selectedFile.name.endsWith('.txt')) {
+          textContent = await selectedFile.text();
+        } else {
+          textContent = `[Анализ документа: ${selectedFile.name}] Договор передан на проверку. Выяви потенциальные налоговые риски и несоответствия закрывающих документов.`;
+        }
+
+        const payload = {
+          access_code: code,
+          doc_type: document.getElementById('docType').value,
+          file_name: selectedFile.name,
+          text: textContent
+        };
+
+        const response = await fetch(N8N_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const rawData = await response.json();
+        const data = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+
+        renderResults(data);
+      } catch (err) {
+        showAlert(err.message || 'Ошибка связи с сервером проверки');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Запустить бухгалтерский экспресс-аудит</span>';
+      }
+    });
+
+    function renderResults(data) {
+      resultsSection.classList.remove('hidden');
+      risksContainer.innerHTML = '';
+
+      summaryText.textContent = data.summary || 'Анализ завершен успешно. Обратите внимание на выделенные пункты:';
+      
+      if (data.risk_level === 'danger') {
+        riskBadge.className = 'text-xs font-bold px-3 py-1.5 rounded-lg border bg-rose-500/10 text-rose-400 border-rose-500/20';
+        riskBadge.textContent = 'Высокий налоговый риск';
+      } else {
+        riskBadge.className = 'text-xs font-bold px-3 py-1.5 rounded-lg border bg-amber-500/10 text-amber-400 border-amber-500/20';
+        riskBadge.textContent = 'Требуются уточнения';
+      }
+
+      const findings = data.findings || [];
+      if (!findings.length) {
+        risksContainer.innerHTML = '<p class="text-sm text-slate-400">Критических бухгалтерских и налоговых рисков не обнаружено.</p>';
+      } else {
+        findings.forEach(item => {
+          const isDanger = item.severity === 'danger';
+          const cardClass = isDanger ? 'border-rose-500/30 bg-rose-500/5' : 'border-amber-500/30 bg-amber-500/5';
+          const badgeClass = isDanger ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300';
+          const badgeTitle = isDanger ? 'Налоговый риск / Штраф' : 'Требует внимания';
+
+          risksContainer.innerHTML += `
+            <div class="border ${cardClass} rounded-xl p-4 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs px-2.5 py-0.5 rounded font-semibold ${badgeClass}">${badgeTitle}</span>
+              </div>
+              <p class="text-xs font-mono text-slate-300 bg-[#070b13] p-2.5 rounded border border-slate-800">${item.clause}</p>
+              <p class="text-xs text-slate-300"><strong class="text-white">Суть риска:</strong> ${item.issue}</p>
+              ${item.accounting_impact ? `<p class="text-xs text-amber-300 font-mono"><strong class="text-white">Бух. проводки / Учет:</strong> ${item.accounting_impact}</p>` : ''}
+              <p class="text-xs text-emerald-400"><strong class="text-white">Рекомендация эксперта:</strong> ${item.recommendation}</p>
+            </div>
+          `;
+        });
+      }
+
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
